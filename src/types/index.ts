@@ -87,7 +87,7 @@ export interface IBasketView {
 // информация о доставке, 
 // Интерфейс заказа, 
 // результат заказа (ID заказа), 
-// данные об успешном заказе (общая сумма)
+// данные об успешном заказе
 export interface IPersonalForm {
 email: string;
 phone: string;

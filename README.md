@@ -380,7 +380,7 @@ interface IOrderResult {
   id: string;
 }
 
-// Данные об успешном заказе (общая сумма)
+// Данные об успешном заказе
 interface ISuccess {
   total: number;
 }
