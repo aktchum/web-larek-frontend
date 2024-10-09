@@ -271,6 +271,7 @@ yarn build
 ---
 ## Интерфейсы
 
+```typescript
 // Общие типы
 type ApiListResponse<Type> = {
   total: number;
@@ -383,3 +384,5 @@ interface IOrderResult {
 interface ISuccess {
   total: number;
 }
+```
+
