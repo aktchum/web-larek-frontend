@@ -271,21 +271,21 @@ yarn build
 ---
 ## Интерфейсы
 
-// общие типы
+// Общие типы
 type ApiListResponse<Type> = {
-  total: number,
-  items: Type[]
+  total: number;
+  items: Type[];
 };
 
-// перечисление методов HTTP-запросов
+// Перечисление методов HTTP-запросов
 type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
 
-// EventName, Subscriber, EmitterEvent описание событий
+// Описание событий: EventName, Subscriber, EmitterEvent
 type EventName = string | RegExp;
 type Subscriber = Function;
 type EmitterEvent = {
-  eventName: string,
-  data: unknown
+  eventName: string;
+  data: unknown;
 };
 
 // Интерфейс для системы событий
@@ -293,9 +293,9 @@ interface IEvents {
   on<T extends object>(event: EventName, callback: (data: T) => void): void;
   emit<T extends object>(event: string, data?: T): void;
   trigger<T extends object>(event: string, context?: Partial<T>): (data: T) => void;
-};
+}
 
-// состояние приложения
+// Состояние приложения
 interface IAppState {
   catalog: IProduct[];
   basket: IProduct[];
@@ -303,17 +303,17 @@ interface IAppState {
   order: IOrder | null;
 }
 
-// тип для ошибок формы
+// Тип для ошибок формы
 type FormErrors = Partial<Record<keyof IOrder, string>>;
 
 // Интерфейс для описания методов API
 interface IWebLarekAPI {
-  getProductList: () => Promise<IProduct[]>; /* Получение списка товаров, возвращает массив товаров */
-  getProductItem: (id: string) => Promise<IProduct>; /* Получение информации о конкретном товаре по ID */
-  orderProducts: (order: IOrder) => Promise<IOrderResult> /* Отправка заказа, возвращает результат заказа */
+  getProductList: () => Promise<IProduct[]>;
+  getProductItem: (id: string) => Promise<IProduct>;
+  orderProducts: (order: IOrder) => Promise<IOrderResult>;
 }
 
-// интерфейс, описывающий товар в каталоге
+// Интерфейс, описывающий товар в каталоге
 interface IProduct {
   id: string;
   category: string;
@@ -323,7 +323,7 @@ interface IProduct {
   description: string;
 }
 
-// интерфейс описывает карточку товара
+// Интерфейс описывает карточку товара
 interface ICard<T> {
   title: string;
   description?: string | string[];
@@ -344,7 +344,7 @@ interface IFormState {
   errors: string[];
 }
 
-// писывает содержимое модального окна
+// Описывает содержимое модального окна
 interface IModalData {
   content: HTMLElement;
 }
@@ -356,26 +356,30 @@ interface IBasketView {
   selected: string[];
 }
 
-// персональные данные, 
-// информация о доставке, 
-// Интерфейс заказа, 
-// результат заказа (ID заказа), 
-// данные об успешном заказе (общая сумма)
+// Персональные данные
 interface IPersonalForm {
   email: string;
   phone: string;
 }
+
+// Информация о доставке
 interface IDeliveryForm {
   payment: string;
   address: string;
 }
+
+// Интерфейс заказа
 interface IOrder extends IPersonalForm, IDeliveryForm {
-total: number;
+  total: number;
   items: string[];
 }
+
+// Результат заказа (ID заказа)
 interface IOrderResult {
   id: string;
 }
+
+// Данные об успешном заказе (общая сумма)
 interface ISuccess {
   total: number;
 }
