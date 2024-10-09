@@ -261,10 +261,121 @@ yarn build
 `container: HTMLElement` — контейнер модального окна с сообщением об успешной оплате.
 `button: HTMLButtonElement` — кнопка "За новыми покупками!", возвращающая пользователя в магазин.
 
-**кКонструктор**:
+**Конструктор**:
 `constructor(total: number, container: HTMLElement, button: HTMLButtonElement)` - Принимает общую сумму total, контейнер для модального окна container и кнопку для возврата в магазин (button).
 
 
 **Методы**:
 - `setTotalSum()` — устанавливает итоговую сумму.
 
+---
+## Интерфейсы
+
+// общие типы
+type ApiListResponse<Type> = {
+  total: number,
+  items: Type[]
+};
+
+// перечисление методов HTTP-запросов
+type ApiPostMethods = 'POST' | 'PUT' | 'DELETE';
+
+// EventName, Subscriber, EmitterEvent описание событий
+type EventName = string | RegExp;
+type Subscriber = Function;
+type EmitterEvent = {
+  eventName: string,
+  data: unknown
+};
+
+// Интерфейс для системы событий
+interface IEvents {
+  on<T extends object>(event: EventName, callback: (data: T) => void): void;
+  emit<T extends object>(event: string, data?: T): void;
+  trigger<T extends object>(event: string, context?: Partial<T>): (data: T) => void;
+};
+
+// состояние приложения
+interface IAppState {
+  catalog: IProduct[];
+  basket: IProduct[];
+  preview: string | null;
+  order: IOrder | null;
+}
+
+// тип для ошибок формы
+type FormErrors = Partial<Record<keyof IOrder, string>>;
+
+// Интерфейс для описания методов API
+interface IWebLarekAPI {
+  getProductList: () => Promise<IProduct[]>; /* Получение списка товаров, возвращает массив товаров */
+  getProductItem: (id: string) => Promise<IProduct>; /* Получение информации о конкретном товаре по ID */
+  orderProducts: (order: IOrder) => Promise<IOrderResult> /* Отправка заказа, возвращает результат заказа */
+}
+
+// интерфейс, описывающий товар в каталоге
+interface IProduct {
+  id: string;
+  category: string;
+  image: string;
+  title: string;
+  price: number | null;
+  description: string;
+}
+
+// интерфейс описывает карточку товара
+interface ICard<T> {
+  title: string;
+  description?: string | string[];
+  image: string;
+  status: T;
+}
+
+// Описывает страницу каталога
+interface IPage {
+  counter: number;
+  catalog: HTMLElement[];
+  locked: boolean;
+}
+
+// Интерфейс для описания состояния формы
+interface IFormState {
+  valid: boolean;
+  errors: string[];
+}
+
+// писывает содержимое модального окна
+interface IModalData {
+  content: HTMLElement;
+}
+
+// Интерфейс описывает вид корзины
+interface IBasketView {
+  items: HTMLElement[];
+  total: number;
+  selected: string[];
+}
+
+// персональные данные, 
+// информация о доставке, 
+// Интерфейс заказа, 
+// результат заказа (ID заказа), 
+// данные об успешном заказе (общая сумма)
+interface IPersonalForm {
+  email: string;
+  phone: string;
+}
+interface IDeliveryForm {
+  payment: string;
+  address: string;
+}
+interface IOrder extends IPersonalForm, IDeliveryForm {
+total: number;
+  items: string[];
+}
+interface IOrderResult {
+  id: string;
+}
+interface ISuccess {
+  total: number;
+}
