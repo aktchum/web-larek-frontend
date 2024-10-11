@@ -16,6 +16,10 @@ export abstract class Component<T> {
 			}
 	}
 
+	protected getText(element: HTMLElement): string {
+			return element.textContent || '';
+	}
+
 	protected setDisabled(element: HTMLElement, state: boolean): void {
 			if (element) {
 					if (state) element.setAttribute('disabled', 'disabled');

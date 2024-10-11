@@ -27,11 +27,15 @@ export class Page extends Component<IPage> {
         this.setText(this.counterElement, String(value));
     }
 
+    get counter(): number {
+      return Number(this.getText(this.counterElement)) || 0;
+   }
+
     set catalog(items: HTMLElement[]) {
         this.catalogElement.replaceChildren(...items);
     }
 
     set locked(value: boolean) {
-        this.wrapperElement.classList.toggle('page__wrapper_locked', value);
-    }
+      this.toggleClass(this.wrapperElement, 'page__wrapper_locked', value); // Используем toggleClass
+  }
 }

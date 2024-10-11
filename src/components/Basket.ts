@@ -1,9 +1,9 @@
 // src/components/common/Basket.ts
 
-import { Component } from '../base/Component';
-import { IBasketView } from '../../types';
-import { IEvents } from '../../types';
-import { ensureElement, createElement } from '../../utils/utils';
+import { Component } from './base/Component';
+import { IBasketView } from '../types';
+import { IEvents } from '../types';
+import { ensureElement, createElement } from '../utils/utils';
 
 /**
  * Класс `Basket` отвечает за отображение корзины товаров.

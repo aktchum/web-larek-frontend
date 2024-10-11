@@ -14,7 +14,7 @@ export class DeliveryForm extends Form<IDeliveryForm> {
 
         this.cardButton = ensureElement<HTMLButtonElement>('button[name="card"]', this.container);
         this.cashButton = ensureElement<HTMLButtonElement>('button[name="cash"]', this.container);
-        this.cashButton.classList.add('button_alt-active');
+        this.toggleClass(this.cashButton, 'button_alt-active', true); // Устанавливаем класс активной кнопки;
 
         if (actions?.onClick) {
             this.cardButton.addEventListener('click', actions.onClick);
@@ -23,8 +23,8 @@ export class DeliveryForm extends Form<IDeliveryForm> {
     }
 
     toggleButtons(): void {
-        this.cardButton.classList.toggle('button_alt-active');
-        this.cashButton.classList.toggle('button_alt-active');
+      this.toggleClass(this.cardButton, 'button_alt-active'); // Используем toggleClass
+      this.toggleClass(this.cashButton, 'button_alt-active'); // Используем toggleClass
     }
 
     set address(value: string) {

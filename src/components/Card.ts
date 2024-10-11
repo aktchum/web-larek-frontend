@@ -1,14 +1,10 @@
 // src/components/Card.ts
 
-import { Component } from './base/Component'; 
+import { Component } from './base/Component';
 import { ICard, ICardActions } from '../types';
 import { ensureElement } from '../utils/utils';
 
-/**
- * Класс `Card` отвечает за отображение карточки товара в каталоге и на странице подробного просмотра.
- */
 export class Card extends Component<ICard> {
-    // Элементы карточки
     protected titleElement: HTMLElement;
     protected priceElement: HTMLElement;
     protected imageElement?: HTMLImageElement;
@@ -25,7 +21,7 @@ export class Card extends Component<ICard> {
         this.imageElement = container.querySelector<HTMLImageElement>('.card__image') || undefined;
         this.buttonElement = container.querySelector<HTMLButtonElement>('.card__button') || undefined;
         this.descriptionElement = container.querySelector<HTMLElement>('.card__text') || undefined;
-        this.categoryElement = ensureElement<HTMLElement>('.card__category', container);
+        this.categoryElement = container.querySelector<HTMLElement>('.card__category') || undefined;
         this.indexElement = container.querySelector<HTMLElement>('.basket__item-index') || undefined;
         // Добавляем обработчики событий
         if (actions?.onClick) {
@@ -50,7 +46,7 @@ export class Card extends Component<ICard> {
     }
 
     get title(): string {
-        return this.titleElement.textContent || '';
+        return this.getText(this.titleElement);
     }
 
     set price(value: number | null) {
@@ -58,21 +54,29 @@ export class Card extends Component<ICard> {
     }
 
     get price(): number | null {
-        const priceText = this.priceElement.textContent || '';
+        const priceText = this.getText(this.priceElement);
         const match = priceText.match(/(\d+)/);
         return match ? Number(match[1]) : null;
     }
 
     set category(value: string) {
-        this.setText(this.categoryElement, value);
-        this.updateCategoryClass(value);
+        if (this.categoryElement) {
+            this.setText(this.categoryElement, value);
+            this.updateCategoryClass(value);
+        }
     }
 
-    // Метод для обновления класса категории
+    get category(): string {
+        return this.categoryElement ? this.getText(this.categoryElement) : '';
+    }
+
     private updateCategoryClass(category: string): void {
-        const baseClass = 'card__category';
-        const categoryClass = `${baseClass}_${this.getCategoryClass(category)}`;
-        this.categoryElement.className = `${baseClass} ${categoryClass}`;
+        if (this.categoryElement) {
+            const baseClass = 'card__category';
+            const categoryClass = `${baseClass}_${this.getCategoryClass(category)}`;
+            this.categoryElement.className = baseClass;
+            this.toggleClass(this.categoryElement, categoryClass, true);
+        }
     }
 
     // Метод для получения класса категории
@@ -87,18 +91,14 @@ export class Card extends Component<ICard> {
         return categoryClasses[category] || 'default';
     }
 
-    get category(): string {
-        return this.categoryElement.textContent || '';
-    }
-
     set index(value: string) {
         if (this.indexElement) {
-            this.indexElement.textContent = value;
+            this.setText(this.indexElement, value);
         }
     }
 
     get index(): string {
-        return this.indexElement?.textContent || '';
+        return this.indexElement ? this.getText(this.indexElement) : '';
     }
 
     set image(value: string) {
@@ -115,7 +115,7 @@ export class Card extends Component<ICard> {
 
     set buttonText(value: string) {
         if (this.buttonElement) {
-            this.buttonElement.textContent = value;
+            this.setText(this.buttonElement, value);
         }
     }
 }

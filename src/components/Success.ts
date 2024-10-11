@@ -1,8 +1,8 @@
 // src/components/common/Success.ts
 
-import { Component } from '../base/Component';
-import { ISuccess } from '../../types';
-import { ensureElement } from '../../utils/utils';
+import { Component } from './base/Component';
+import { ISuccess } from '../types';
+import { ensureElement } from '../utils/utils';
 
 interface ISuccessActions {
     onClick: () => void;
@@ -22,6 +22,12 @@ export class Success extends Component<ISuccess> {
     }
 
     set total(value: number) {
-        this.totalElement.textContent = `Списано ${value} синапсов`;
+      this.setText(this.totalElement, `Списано ${value} синапсов`); // Используем setText
     }
+
+    get total(): number {
+      const totalText = this.getText(this.totalElement);
+      const match = totalText.match(/(\d+)/);
+      return match ? Number(match[1]) : 0;
+  }
 }

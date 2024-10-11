@@ -10,10 +10,10 @@ import { Page } from './components/Page'; // Класс страницы
 import { cloneTemplate, ensureElement } from './utils/utils'; // Утилиты для работы с DOM
 import { Modal } from './components/common/Modal'; // Класс модального окна
 import { Card } from './components/Card'; // Класс карточки товара
-import { Basket } from './components/common/Basket'; // Класс корзины
+import { Basket } from './components/Basket'; // Класс корзины
 import { DeliveryForm } from './components/DeliveryForm'; // Класс формы доставки
 import { PersonalForm } from './components/PersonalForm'; // Класс формы личных данных
-import { Success } from './components/common/Success'; // Класс сообщения об успешном заказе
+import { Success } from './components/Success'; // Класс сообщения об успешном заказе
 import { IProduct, IDeliveryForm, IPersonalForm, FormErrors } from './types'; // Импортируем класс BasketCard
 import { BasketCard } from './components/BasketCard'; // Импортируем типы
 

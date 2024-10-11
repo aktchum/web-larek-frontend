@@ -25,14 +25,14 @@ export class Modal extends Component<IModalData> {
     }
 
     open(): void {
-        this.container.classList.add('modal_active');
-        this.events.emit('modal:open');
+      this.toggleClass(this.container, 'modal_active', true); // Используем toggleClass
+      this.events.emit('modal:open');
     }
 
     close(): void {
-        this.container.classList.remove('modal_active');
-        this.contentElement.innerHTML = '';
-        this.events.emit('modal:close');
+      this.toggleClass(this.container, 'modal_active', false); // Используем toggleClass
+      this.contentElement.innerHTML = '';
+      this.events.emit('modal:close');
     }
 
     render(data: IModalData): HTMLElement {

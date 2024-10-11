@@ -33,11 +33,11 @@ export class Form<T> extends Component<IFormState> {
     }
 
     set valid(value: boolean) {
-        this.submitButton.disabled = !value;
+      this.setDisabled(this.submitButton, !value); // Используем setDisabled
     }
 
     set errors(value: string[]) {
-        this.errorsElement.textContent = value.join('; ');
+      this.setText(this.errorsElement, value.join('; ')); // Используем setText
     }
 
     render(state: Partial<T> & IFormState): HTMLElement {

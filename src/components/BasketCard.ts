@@ -34,15 +34,29 @@ export class BasketCard extends Component<ICard> {
         this.setText(this.titleElement, value);
     }
 
+    get title(): string {
+      return this.getText(this.titleElement);
+  }
+
     // Устанавливаем цену товара
     set price(value: number | null) {
         this.setText(this.priceElement, value ? `${value} синапсов` : 'Бесценно');
     }
 
-    // Метода для установки индекса товара в корзине
+    get price(): number | null {
+      const priceText = this.getText(this.priceElement);
+      const match = priceText.match(/(\d+)/);
+      return match ? Number(match[1]) : null;
+  }
+
+    // Метод для установки индекса товара в корзине
     set index(value: string) {
         if (this.indexElement) {
             this.setText(this.indexElement, value);
         }
     }
+
+    get index(): string {
+      return this.indexElement ? this.getText(this.indexElement) : '';
+  }
 }
