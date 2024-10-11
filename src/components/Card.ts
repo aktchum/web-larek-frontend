@@ -10,7 +10,7 @@ export class Card extends Component<ICard> {
     protected imageElement?: HTMLImageElement;
     protected descriptionElement?: HTMLElement;
     protected buttonElement?: HTMLButtonElement;
-    protected categoryElement?: HTMLElement; // Сделал элемент необязательным
+    protected categoryElement?: HTMLElement;
     protected indexElement?: HTMLElement;
 
     constructor(container: HTMLElement, actions?: ICardActions) {
@@ -50,8 +50,15 @@ export class Card extends Component<ICard> {
     }
 
     set price(value: number | null) {
-        this.setText(this.priceElement, value ? `${value} синапсов` : 'Бесценно');
-    }
+      const priceText = value ? `${value} синапсов` : 'Бесценно';
+      this.setText(this.priceElement, priceText);
+
+      // Если цена null, деактивируем кнопку
+      if (this.buttonElement) {
+          const isPriceless = value === null;
+          this.setDisabled(this.buttonElement, isPriceless);
+        }
+      }
 
     get price(): number | null {
         const priceText = this.getText(this.priceElement);
